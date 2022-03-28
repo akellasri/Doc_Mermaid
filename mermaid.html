@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="styling.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://unpkg.com/mermaid@8.13.10/dist/mermaid.min.js"></script>
+</head>
+<body>
+
+    <div>
+        <ul class="legend">
+            <li><span class="raw_data"></span> raw_data</li>
+            <li><span class="recent_data"></span> recent_data</li>
+            <li><span class="internal"></span> internal</li>
+            <li><span class="views"></span> views</li>
+            <li><span class="fields"></span> fields</li>
+        </ul>
+    </div>
+
+    <div class="mermaid">
+        
+        flowchart TD;
+        hn4{{branded_sponsored_media_value}} --> ci((internal to views)) --> 
+        ss[[realtime_branded_sponsored_media_value]]
+
+        hn4{{branded_sponsored_media_value}} --> fi4[<ol><li>+brand_name</li><li>+branded_value</li><li>+sponsored_value</li></ol>]
+
+        ss[[realtime_sponsored_branded_media_value]] --> fi1[<ol><li>+brand_name</li><li>+sponsored_value</li><li>+branded_value</li></ol>]
+        
+        ss2[[realtime_media_reach]] --> hn4{{branded_sponsored_media_value}}
+    
+        hn4{{branded_sponsored_media_value}} --> ci7((internal to views)) --> ss3[[realtime_total_media_value]]
+    
+        ss2[[realtime_media_reach]] --> ss[[realtime_sponsored_branded_media_value]]
+    
+        hn2{{brand_visibility}} --> ci6((internal to views)) --> ss4[[realtime_brand_visibility]]
+
+        hn2{{brand_visibility}} --> fi3[<ol><li>+brand_name</li><li>+brand_visibility_total</li><li>+detection_count</li><li>+group_count</li></ol>]
+    
+        ss2[[realtime_media_reach]] --> ss4[[realtime_brand_visibility]]
+    
+        ss2[[realtime_media_reach]] --> ss3[[realtime_total_media_value]]
+        
+        ss3[[realtime_total_media_value]] --> fi[<ol><li>+brand_name</li><li>+sponsored_value</li><li>+branded_value</li><li>+logo_value</li><li>+total_media_value</li></ol>]
+    
+        ss6[[realtime_logo_media_value]] --> ss3[[realtime_total_media_value]]
+
+        ss6[[realtime_logo_media_value]] --> fi2[<ol><li>+media_value</li></ol>]
+  
+        ss2[[realtime_media_reach]] --> hn12{{media_retention}}
+
+        hn12{{media_retention}} --> fi15[<ol><li>+retention</li></ol>]
+    
+        ssn5([recent_retention]) --> hn12{{media_retention}}
+    
+        re8(Standard_Retention) --> rh8{raw_data to internal} --> hn12{{media_retention}}
+    
+        re8(Standard_Retention) --> rh8{raw_data to internal} --> hn13{{standard_retention}}
+    
+        re7(Raw_Retentions) --> rh7{raw_data to recent_data} -->  ssn5([recent_retention])
+    
+        ssn4([recent_scene_tags]) --> ci2((recent_data to views)) -->  ss5[[realtime_historical_media_reach]] & ss2[[realtime_media_reach]]
+    
+        re6(Scene_Tags) --> rh6{raw_data to recent_data} -->  ssn4([recent_scene_tags])
+    
+    
+        hn9{{historical_media_reach_engagement}} --> ci4((internal to views)) --> ss5[[realtime_historical_media_reach]]
+
+        hn9{{historical_media_reach_engagement}} --> fi11[<ol><li>+engagement_rate</li><li>+engagement_factor</li><li>+interactions</li><li>+likes_factor</li><li>+comments_factor</li><li>+dislikes_factor</li><li>+shares_factor</li></ol>]
+
+        ss5[[realtime_historical_media_reach]] --> fi14[<ol><li>+scene_tags</li></ol>]
+
+        hn8{{historical_media_predicted_views}} --> hn9{{historical_media_reach_engagement}}
+
+        hn8{{historical_media_predicted_views}} --> fi10[<ol><li>+views_predicted</li><li>+views</li></ol>]
+    
+        re3(Crowdtangle_Rawdata) --> rh3{raw_data to internal} --> hn8{{historical_media_predicted_views}}
+    
+        hn7{{historical_media_reach}} --> hn8{{historical_media_predicted_views}}
+
+        hn7{{historical_media_reach}} --> fi9[<ol><li>+channel_url</li><li>+channel_tags</li><li>+subscriber_count</li><li>+channel_tags_clean</li><li>gallery_index</li><li>gallery_size</li></ol>]
+    
+        re4(Public_Reach) -->rh4{raw_data to recent & internal} --> hn7{{historical_media_reach}} & ssn2([recent_media_reach])
+    
+        hn11{{media_reach_engagement}} --> ci3((internal to views)) --> ss2[[realtime_media_reach]]
+
+        hn11{{media_reach_engagement}} --> fi13[<ol><li>+engagement_rate</li><li>+engagement_factor</li><li>+interactions</li><li>+likes_factor</li><li>+comments_factor</li><li>+dislikes_factor</li><li>+shares_factor</li></ol>]
+
+        hn10{{media_predicted_views}} --> hn11{{media_reach_engagement}}
+
+        hn10{{media_predicted_views}} --> fi12[<ol><li>+views_predicted</li><li>+views</li></ol>]
+    
+        re3(Crowdtangle_Rawdata) --> rh3{raw_data to internal} -->  hn10{{media_predicted_views}}
+    
+        ssn2([recent_media_reach]) --> hn10{{media_predicted_views}}
+    
+        ssn3([recent_channel_info]) --> hn7{{historical_media_reach}} & ssn2([recent_media_reach])
+    
+        re5(Channle_Info) --> rh5{raw_data to internal & recent} --> ssn3([recent_channel_info]) & hn5{{historical_channel_info}} & hn6{{historical_channel_info_extended}}
+
+        hn6{{historical_channel_info_extended}} --> fi8[<ol><li>+first_count</li><li>+last_count</li></ol>]
+    
+        re(Running_CPM) --> rh{raw_data to internal} --> hn3{{logo_detection_value_factors}}
+    
+        hn{{logo_detection_with_media}} --> hn3{{logo_detection_value_factors}}
+
+        hn{{logo_detection_with_media}} --> fi6[<ol><li>+media</li><li>+detections</li><li>+avg_retention</li></ol>]
+    
+        hn3{{logo_detection_value_factors}} --> ci5((internal to views)) --> ss6[[realtime_logo_media_value]]
+
+        hn3{{logo_detection_value_factors}} --> fi5[<ol><li>+cpm</li><li>+logo_watch_time</li><li>+logo_area_factor</li><li>+logo_scene_tags</li></ol>]
+    
+        ssn([recent_logo_detections]) --> hn{{logo_detection_with_media}} & hn2{{brand_visibility}}
+
+        ssn([recent_logo_detections]) --> fi7[<ol><li>+logo_tags_clean</li></ol>]
+    
+        re2(Logo_Detections) --> rh2{raw_data to recent_data} --> ssn([recent_logo_detections]) 
+
+        
+        classDef orange fill:#f96,stroke:#333,stroke-width:8px;
+        class re,re2,re3,re4,re5,re6,re7,re8 orange
+        
+        classDef darkseagreen fill:#8fbc8f,stroke:#333,stroke-width:5px;
+        class ss,ss2,ss3,ss4,ss5,ss6 darkseagreen
+
+        classDef yellow fill:#ff0,stroke:#333,stroke-width:5px;
+        class hn,hn2,hn3,hn3,hn4,hn5,hn6,hn7,hn8,hn9,hn10,hn11,hn12,hn13 yellow
+        
+
+        classDef red-orange fill:#ffd4bf,stroke:#333,stroke-width:5px;
+        class fi,fi1,fi2,fi3,fi4,fi5,fi6,fi6,fi7,fi8,fi9,fi10,fi11,fi12,fi13,fi14,fi15 red-orange
+
+        classDef green-cyan fill:#66ffe1,stroke:#333,stroke-width:5px;
+        class ssn,ssn2,ssn3,ssn4,ssn5 green-cyan
+
+        
+    </div>  
+      
+    <script>
+        mermaid.initialize({startOnLoad:true});
+    </script>
+</body>
+</html>
