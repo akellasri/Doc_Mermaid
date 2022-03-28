@@ -1,0 +1,30 @@
+.mermaid {
+    font-size: 20px;
+    width: 1800px;
+    align-content: center;
+    padding-bottom: 2500px;
+    margin-top: -500px;
+   
+}
+
+
+svg{
+    align-content: center;
+    
+}
+
+.mermaid ol li {
+    text-align: left;
+
+}
+
+/* basic positioning */
+.legend { list-style:none; position:relative;}
+.legend li { float: left; margin-right: 10px; padding-top:500px; margin-bottom: -500px;}
+.legend span { border: 1px solid #ccc; float: left; width: 12px; height: 12px; margin: 2px; }
+/* your colors */
+.legend .raw_data { background-color: #f96; }
+.legend .recent_data { background-color: #66ffe1; }
+.legend .internal { background-color:  #ff0; }
+.legend .views { background-color: #8fbc8f; }
+.legend .fields { background-color: #ffd4bf; }
